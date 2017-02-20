@@ -1,0 +1,66 @@
+﻿@model IEnumerable<MyWebApplication.Areas.Security.Models.UserModelView>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a href="@Url.Action("Create")" class="btn btn-">
+        <span class="glyphicon glyphicon-plus"></span>Create New
+    </a>
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lastname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th>
+            Action
+        </th>
+       
+       
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Firstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lastname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gender)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Age)
+        </td>
+        <td>
+            <a href="@Url.Action("Edit", new { id=item.Id })" class="text-info">
+                <span class="glyphicon glyphicon-edit"></span>Edit
+            </a>&nbsp|&nbsp
+            <a href="@Url.Action("Details", new { id=item.Id })" class="text-info">
+                <span class="glyphicon glyphicon-user"></span>Details
+            </a>&nbsp|&nbsp
+            <a href="@Url.Action("Delete", new { id=item.Id })" class="text-danger">
+                <span class="glyphicon glyphicon-trash"></span>Delete
+            </a>
+        </td>
+    </tr>
+   
+}
+  
+</table>

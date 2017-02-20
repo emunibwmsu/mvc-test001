@@ -1,0 +1,54 @@
+﻿@model MyWebApplication.Areas.Security.Models.UserModelView
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h2>Use Detail
+    <a href="@Url.Action("Index")" class="btn detail-btn-text">
+    <span class="glyphicon glyphicon-remove"></span>Back to list
+</a></h2>
+    <hr />
+    <dl class="details-dl-horizontal">
+       
+          
+        <a href="@Url.Action("Edit", new { id = Model.Id })" class="text details-btn-link">
+            <span class="glyphicon glyphicon-pencil"></span> Edit
+        </a>
+            <dt>
+                @Html.DisplayNameFor(model => model.Firstname)
+            </dt>
+
+            <dd class="details-name">
+                @Html.DisplayFor(model => model.Firstname)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Lastname)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Lastname)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Gender)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Gender)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Age)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Age)
+            </dd>
+
+</dl>
+</div>
+
