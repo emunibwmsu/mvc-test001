@@ -128,8 +128,6 @@ namespace MyWebApplication.Areas.Security.Controllers
         {
             try
             {   
-                using (var db = new DatabaseContext())
-                {
                     var edit =db.Users.FirstOrDefault(user => user.Id == id);
                     edit.Firstname = viewModel.Firstname;
                     edit.Lastname = viewModel.Lastname;
