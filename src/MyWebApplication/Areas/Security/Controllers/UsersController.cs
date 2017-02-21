@@ -116,26 +116,51 @@ namespace MyWebApplication.Areas.Security.Controllers
         }
 
 
-        public ActionResult Edit(Guid id)
+        // GET: Security/Users/Edit/5
+        public ActionResult Edit(Guid Id)
         {
-            var e = Users.FirstOrDefault(user => user.Id == id);
-            return View(e);
+            using (var db = new DatabaseContext())
+            {
+                var users = (from user in db.Users
+                             select new UserModelView
+                             {
+                                 Id = user.Id,
+                                 Firstname = user.Firstname,
+                                 Lastname = user.Lastname,
+                                 Age = user.Age,
+                                 Gender = user.Gender
+                             }).ToList();
+
+                var u = users.FirstOrDefault(user => user.Id == Id);
+
+                return View(u);
+            }
         }
 
-        
+        // POST: Security/Users/Edit/5
         [HttpPost]
-        public ActionResult Edit(Guid id,UserModelView viewModel)
+        public ActionResult Edit(Guid Id, UserModelView viewModel)
         {
             try
             {
-                var edit = Users.FirstOrDefault(user => user.Id == id);
-                edit.Firstname = viewModel.Firstname;
-                edit.Lastname = viewModel.Lastname;
-                edit.Age = viewModel.Age;
-                edit.Gender = viewModel.Gender;
+                using (var db = new DatabaseContext())
+                {
 
-                return RedirectToAction("Index");
+
+                    var u = db.Users.FirstOrDefault(us => us.Id == Id);
+                    if (u != null)
+                    {
+                        u.Firstname = viewModel.Firstname;
+                        u.Lastname = viewModel.Lastname;
+                        u.Age = viewModel.Age;
+                        u.Gender = viewModel.Gender;
+                        db.SaveChanges();
+
+                    }
+                    return RedirectToAction("Index");
+                }
             }
+
             catch
             {
                 return View();
