@@ -29,7 +29,7 @@ namespace MyWebApplication.Areas.Security.Controllers
                 {
                 Id = Guid.NewGuid(),  
                 Firstname = "Sitti",
-                Lastname ="Talin",
+                Lastname ="Talib",
                 Gender = "Female",
                 Age = 21
                 }
@@ -118,7 +118,7 @@ namespace MyWebApplication.Areas.Security.Controllers
 
         public ActionResult Edit(Guid id)
         {
-            var e = Users.FirstOrDefault(user => user.Id == id);
+           var e = Users.FirstOrDefault(user => user.Id == id);
             return View(e);
         }
 
@@ -127,12 +127,14 @@ namespace MyWebApplication.Areas.Security.Controllers
         public ActionResult Edit(Guid id,UserModelView viewModel)
         {
             try
-            {
-                var edit = Users.FirstOrDefault(user => user.Id == id);
-                edit.Firstname = viewModel.Firstname;
-                edit.Lastname = viewModel.Lastname;
-                edit.Age = viewModel.Age;
-                edit.Gender = viewModel.Gender;
+            {   
+                using (var db = new DatabaseContext())
+                {
+                    var edit =db.Users.FirstOrDefault(user => user.Id == id);
+                    edit.Firstname = viewModel.Firstname;
+                    edit.Lastname = viewModel.Lastname;
+                    edit.Age = viewModel.Age;
+                    edit.Gender = viewModel.Gender;
 
                 return RedirectToAction("Index");
             }
@@ -154,10 +156,16 @@ namespace MyWebApplication.Areas.Security.Controllers
         public ActionResult Delete(Guid id,FormCollection collection)
         {
             try
-            {
-                var usr = Users.FirstOrDefault(user => user.Id == id);
-                Users.Remove(usr);
+            {   
+                using (var db = new DatabaseContext())
+                {
+                    var delete =db.Users.FirstOrDefault(user => user.Id == id);
+                    db.Users.Remove(delete);
 
+                    db.SaveChanges();
+               
+                }
+               
                 return RedirectToAction("Index");
             }
             catch
