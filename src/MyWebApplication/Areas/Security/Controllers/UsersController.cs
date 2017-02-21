@@ -29,7 +29,7 @@ namespace MyWebApplication.Areas.Security.Controllers
                 {
                 Id = Guid.NewGuid(),  
                 Firstname = "Sitti",
-                Lastname ="Talin",
+                Lastname ="Talib",
                 Gender = "Female",
                 Age = 21
                 }
@@ -132,7 +132,7 @@ namespace MyWebApplication.Areas.Security.Controllers
                              }).ToList();
 
                 var u = users.FirstOrDefault(user => user.Id == Id);
-
+        
                 return View(u);
             }
         }
@@ -157,8 +157,8 @@ namespace MyWebApplication.Areas.Security.Controllers
                         db.SaveChanges();
 
                     }
-                    return RedirectToAction("Index");
-                }
+                return RedirectToAction("Index");
+            }
             }
 
             catch
@@ -180,8 +180,14 @@ namespace MyWebApplication.Areas.Security.Controllers
         {
             try
             {
-                var usr = Users.FirstOrDefault(user => user.Id == id);
-                Users.Remove(usr);
+                using (var db = new DatabaseContext())
+                {
+                    var delete =db.Users.FirstOrDefault(user => user.Id == id);
+                    db.Users.Remove(delete);
+
+                    db.SaveChanges();
+               
+                }
 
                 return RedirectToAction("Index");
             }
