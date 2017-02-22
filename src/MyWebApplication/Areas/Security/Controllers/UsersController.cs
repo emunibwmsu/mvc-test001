@@ -40,7 +40,7 @@ namespace MyWebApplication.Areas.Security.Controllers
                     Lastname = user.Lastname,
                     Gender = user.Gender,
                     Age = user.Age,
-                 
+                    EmploymentDate = user.EmploymentDate
 
                 }).ToList();
 
@@ -92,6 +92,7 @@ namespace MyWebApplication.Areas.Security.Controllers
                             Lastname = viewModel.Lastname,
                             Gender = viewModel.Gender,
                             Age = viewModel.Age,
+                            EmploymentDate = viewModel.EmploymentDate
                             
                         });
                     db.SaveChanges();
@@ -119,6 +120,7 @@ namespace MyWebApplication.Areas.Security.Controllers
                                  Lastname = user.Lastname,
                                  Age = user.Age,
                                  Gender = user.Gender,
+                                 EmploymentDate = user.EmploymentDate
                                
                              }).ToList();
 
@@ -145,6 +147,7 @@ namespace MyWebApplication.Areas.Security.Controllers
                         u.Lastname = viewModel.Lastname;
                         u.Age = viewModel.Age;
                         u.Gender = viewModel.Gender;
+                        u.EmploymentDate = viewModel.EmploymentDate;
                         
                         db.SaveChanges();
 
@@ -200,6 +203,7 @@ namespace MyWebApplication.Areas.Security.Controllers
                             Lastname = user.Lastname,
                             Age = user.Age,
                             Gender = user.Gender,
+                            EmploymentDate = user.EmploymentDate
                            
                         }).FirstOrDefault();
 
