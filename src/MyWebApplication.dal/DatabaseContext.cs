@@ -16,5 +16,6 @@ namespace MyWebApplication.dal
 
         }
         public DbSet<User> Users { get; set; }
+        public DbSet<Education> Educations { get; set; }
     }
 }

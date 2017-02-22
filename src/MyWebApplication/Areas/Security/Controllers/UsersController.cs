@@ -40,7 +40,8 @@ namespace MyWebApplication.Areas.Security.Controllers
                     Lastname = user.Lastname,
                     Gender = user.Gender,
                     Age = user.Age,
-                    EmploymentDate = user.EmploymentDate
+                    EmploymentDate = user.EmploymentDate,
+                    Schools = user.Educations.Select(s => s.School).ToList()
 
                 }).ToList();
 

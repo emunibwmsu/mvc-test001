@@ -20,5 +20,6 @@ namespace MyWebApplication.Areas.Security.Models
         public string Gender { get; set; }
         public int? Age { get; set; }
         public DateTime? EmploymentDate { get; set; }
+        public IList<string> Schools { get; set; }
     }
 }

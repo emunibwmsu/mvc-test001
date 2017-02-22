@@ -9,6 +9,11 @@ namespace MyWebApplication.dal
 {
     public class User
     {
+        public User()
+        {
+            Educations = new List<Education>();
+        }
+
         [Key]
         public int Id { get; set; }
         public string Firstname { get; set; }
@@ -16,5 +21,7 @@ namespace MyWebApplication.dal
         public string Gender { get; set; }
         public int? Age { get; set; }
         public DateTime? EmploymentDate { get; set; }
+
+        public ICollection<Education> Educations { get; set; }
     }
 }
