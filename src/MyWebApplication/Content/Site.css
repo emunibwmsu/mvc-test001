@@ -143,11 +143,11 @@ th, td {
     padding: 8px;
 }
 
-tr:nth-child(even){background-color: #f2f2f2}
+tr:nth-child(odd){background-color: rgba(0,0,0,0.12)}
 
 th {
 
-    color: black;
+   color: black;
 }
 
 h3, .h3 {
@@ -155,12 +155,7 @@ h3, .h3 {
     margin-left: 15px;
 }
 
-.create {
-    -webkit-column-count: 2;
-    column-width: 400px;
-   margin-left: 20px;
 
-}
 fieldset {
     padding: 2px;
     margin: 2px;

@@ -9,6 +9,7 @@ namespace MyWebApplication.Areas.Security.Models
     public class UserModelView
     {
         public int Id { get; set; }
+        public Guid Guid { get; set; }
         [Required (ErrorMessage="This is a required field")]
         [MinLength(5, ErrorMessage="Minimum of 5 characters")]
         [MaxLength(20, ErrorMessage = "Maximum of 20 characters")]
@@ -20,6 +21,10 @@ namespace MyWebApplication.Areas.Security.Models
         public string Gender { get; set; }
         public int? Age { get; set; }
         public DateTime? EmploymentDate { get; set; }
-        public IList<string> Schools { get; set; }
+        /*public string School { get; set; }
+        public string YearAttended { get; set; }*/
+        
+        public IList<EducationModelView> Education { get; set; }
+       
     }
 }

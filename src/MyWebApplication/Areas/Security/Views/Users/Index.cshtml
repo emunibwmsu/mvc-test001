@@ -14,18 +14,13 @@
 
 </p>
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
 
 <table class="table">
     <tr>
         <th>
-
+            SN
         </th>
+
         <th>
         @Html.DisplayNameFor(model => model.Firstname)
         </th>
@@ -41,51 +36,89 @@
         <th>
             @Html.DisplayNameFor(model => model.EmploymentDate)
         </th>
+        
         <th>
             Action
         </th>
        
        
     </tr>
+    
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>
+                @if (user.Education != null && user.Education.Count() > 0)
+                {
+                    <a class="text-primary" role="button" data-toggle="collapse"
+                       href="#chk_@user.Guid"
+                       aria-expanded="false"
+                       aria-controls="collapseExample">
+                        <span class="glyphicon glyphicon-asterisk"></span>
+                    </a>
+                }
+                    else
+                {
+                    <span class="glyphicon glyphicon-asterisk"></span>    
+                }
+                
+            </td>
+         
+            <td>
+                @Html.DisplayFor(modelItem => user.Firstname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.Lastname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.EmploymentDate)
+            </td>
 
-@foreach (var item in Model) {
-    <tr>
-       <td>
-           <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#demo">*</button>
-           <div id="demo" class="collapse out">
-            </div>
-</td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Firstname)
-        </td>
+            <td>
+                <a href="@Url.Action("Edit", new { id=user.Id })" class="text-info">
+                    <span class="glyphicon glyphicon-edit"></span>Edit
+                </a>&nbsp|&nbsp
+                <a href="@Url.Action("Details", new { id=user.Id })" class="text-info">
+                    <span class="glyphicon glyphicon-user"></span>Details
+                </a>&nbsp|&nbsp
+                <a href="@Url.Action("Delete", new { id=user.Id })" class="text-danger">
+                    <span class="glyphicon glyphicon-trash"></span>Delete
+                </a>
+            </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Lastname)
-        </td>
+        </tr>
+        if (user.Education != null && user.Education.Count() > 0)
+        {
+            <tr class="collapse" id="chk_@user.Guid">
+                <td colspan="7">
+                    <h5 style="margin-left:100px">Educations</h5>
+                    <table class="table table-condensed table-hover">
+                        @foreach (var education in user.Education)
+                        {
+                            <tr class="row">
+                                <td class="col-md-2"></td>
+                                @*<td class="col-md-3">
+                                    @Html.DisplayFor(modelItem => education.Level)
+                                </td>*@
+                                <td class="col-md-3">
+                                    @Html.DisplayFor(modelItem => education.School)
+                                </td>
+                                <td class="col-md-3">
+                                    @Html.DisplayFor(modelItem => education.YearAttended)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </td>
+            </tr>
+        }
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Age)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmploymentDate)
-        </td>
-        <td>
-            <a href="@Url.Action("Edit", new { id=item.Id })" class="text-info">
-                <span class="glyphicon glyphicon-edit"></span>Edit
-            </a>&nbsp|&nbsp
-            <a href="@Url.Action("Details", new { id=item.Id })" class="text-info">
-                <span class="glyphicon glyphicon-user"></span>Details
-            </a>&nbsp|&nbsp
-            <a href="@Url.Action("Delete", new { id=item.Id })" class="text-danger">
-                <span class="glyphicon glyphicon-trash"></span>Delete
-            </a>
-        </td>
-
-    </tr>
-   
-}
+    }
   
 </table>

@@ -2,6 +2,7 @@
 using MyWebApplication.dal;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -41,7 +42,12 @@ namespace MyWebApplication.Areas.Security.Controllers
                     Gender = user.Gender,
                     Age = user.Age,
                     EmploymentDate = user.EmploymentDate,
-                    Schools = user.Educations.Select(s => s.School).ToList()
+                    Education = user.Educations.Select(s =>
+                          new EducationModelView
+                          {
+                              School = s.School,
+                              YearAttended = s.YearAttended
+                          }).ToList()
 
                 }).ToList();
 
@@ -76,7 +82,6 @@ namespace MyWebApplication.Areas.Security.Controllers
             return View();
         }
 
-        //insert From pic
         [HttpPost]
         public ActionResult Create(UserModelView viewModel)
         {
@@ -84,22 +89,37 @@ namespace MyWebApplication.Areas.Security.Controllers
             {
                 if (ModelState.IsValid == false)
                     return View();
+
                 using (var db = new DatabaseContext())
                 {
-                    db.Users.Add(new User
+                    var newUser = new User
+                    {
+                        Guid = Guid.NewGuid(),
+                        Firstname = viewModel.Firstname,
+                        Lastname = viewModel.Lastname,
+                        Age = viewModel.Age,
+                        Gender = viewModel.Gender,
+                        EmploymentDate = viewModel.EmploymentDate
+                    };
+
+                    if (viewModel.Education != null)
+                    {
+                        foreach (var edu in viewModel.Education)
                         {
-                            //Id = Guid.NewGuid(),
-                            Firstname = viewModel.Firstname,
-                            Lastname = viewModel.Lastname,
-                            Gender = viewModel.Gender,
-                            Age = viewModel.Age,
-                            EmploymentDate = viewModel.EmploymentDate
-                            
-                        });
+                            newUser.Educations.Add(new Education
+                            {
+                                School = edu.School,
+                                YearAttended = edu.YearAttended
+                            });
+                        }
+                    }
+
+                    db.Users.Add(newUser);
+
                     db.SaveChanges();
+
+                    return RedirectToAction("Index");
                 }
-     
-                return RedirectToAction("Index");
             }
             catch
             {
