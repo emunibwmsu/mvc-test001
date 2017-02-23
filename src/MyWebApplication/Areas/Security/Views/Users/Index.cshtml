@@ -18,32 +18,35 @@
 <table class="table">
     <tr>
         <th>
-            
+
+        </th>
+        <th>
+            SN
         </th>
 
         <th>
-        @Html.DisplayNameFor(model => model.Firstname)
+            @Html.DisplayNameFor(model => model.Firstname)
         </th>
         <th>
-        @Html.DisplayNameFor(model => model.Lastname)
+            @Html.DisplayNameFor(model => model.Lastname)
         </th>
         <th>
-         @Html.DisplayNameFor(model => model.Gender)
+            @Html.DisplayNameFor(model => model.Gender)
         </th>
         <th>
-         @Html.DisplayNameFor(model => model.Age)
-        </th> 
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.EmploymentDate)
         </th>
-        
+
         <th>
             Action
         </th>
-       
-       
+
+
     </tr>
-    
+    @{var x = 1;}
     @foreach (var user in Model)
     {
         <tr>
@@ -57,13 +60,17 @@
                         <span class="glyphicon glyphicon-asterisk"></span>
                     </a>
                 }
-                    else
+                else
                 {
-                    <span class="glyphicon glyphicon-asterisk"></span>    
+                    <span class="glyphicon glyphicon-asterisk"></span>
                 }
-                
+
             </td>
-         
+
+            <td>
+                @(x++)
+            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => user.Firstname)
             </td>
@@ -102,10 +109,6 @@
                         @foreach (var education in user.Education)
                         {
                             <tr class="row">
-                                <td class="col-md-2"></td>
-                                @*<td class="col-md-3">
-                                    @Html.DisplayFor(modelItem => education.Level)
-                                </td>*@
                                 <td class="col-md-3">
                                     @Html.DisplayFor(modelItem => education.School)
                                 </td>
@@ -120,5 +123,5 @@
         }
 
     }
-  
+
 </table>
